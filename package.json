@@ -4,7 +4,7 @@
   "description": "Trading Interface UI for the Prediction Market 2.0 Contracts",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --mode development",
+    "start": "node_modules/.bin/webpack-dev-server --mode development --hot",
     "build": "node_modules/.bin/webpack --mode production",
     "eslint": "node_modules/.bin/eslint .",
     "eslint-fix": "node_modules/.bin/eslint --fix ."

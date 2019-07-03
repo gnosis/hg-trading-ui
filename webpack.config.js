@@ -49,7 +49,6 @@ module.exports = {
       template: 'src/html/index.html',
       base: baseUrl,
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
       BASE_URL: baseUrl,
