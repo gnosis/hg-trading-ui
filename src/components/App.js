@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import AppRoutes from 'routes';
+import AppRoutes from 'routes/';
 
 const App = () => (
   <div>

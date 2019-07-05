@@ -1,17 +1,19 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
-const isProduction = process.env.NODE_ENV == 'production';
-const baseUrl = isProduction ? '/hg-trading-ui/' : '/';
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 
-if (isProduction) {
-  console.log('Running in production environment');
-}
+const isProduction = process.env.NODE_ENV == 'production';
+const baseUrl = isProduction && process.env.CI ? '/hg-trading-ui/' : '/';
 
 module.exports = {
   devtool: 'eval-source-map',
   output: {
-    path: `${__dirname}/docs`, // github pages for now
+    path: `${__dirname}/docs`, // github pages for now,
+    chunkFilename: isProduction ? '[name].[chunkhash:4].js' : '[name].js',
+    filename: isProduction ? '[name].[chunkhash:4].js' : '[name].js',
+    publicPath: baseUrl,
   },
   module: {
     rules: [
@@ -21,15 +23,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          },
-        ],
-      },
+      }
     ],
   },
   devServer: {
@@ -47,12 +41,18 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       template: 'src/html/index.html',
-      base: baseUrl,
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    isProduction && new InlineChunkHtmlPlugin(HtmlWebPackPlugin, [/runtime/]),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
       BASE_URL: baseUrl,
     }),
-  ],
+    new DashboardPlugin(),
+  ].filter(Boolean),
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    },
+    runtimeChunk: true,
+  }
 };

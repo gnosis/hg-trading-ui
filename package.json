@@ -4,10 +4,11 @@
   "description": "Trading Interface UI for the Prediction Market 2.0 Contracts",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --mode development",
-    "build": "node_modules/.bin/webpack --mode production",
-    "eslint": "node_modules/.bin/eslint .",
-    "eslint-fix": "node_modules/.bin/eslint --fix ."
+    "start": "NODE_ENV=development webpack-dashboard -- webpack-dev-server --mode development --hot",
+    "build": "rimraf ./docs && NODE_ENV=production webpack-dashboard -- webpack --mode production",
+    "eslint": "eslint .",
+    "eslint-fix": "eslint --fix .",
+    "stats": "NODE_ENV=production webpack --mode production --profile --json > stats.json && webpack-bundle-analyzer ./stats.json ./docs"
   },
   "repository": {
     "type": "git",
@@ -61,8 +62,12 @@
     "html-webpack-plugin": "git+https://github.com/jantimon/html-webpack-plugin.git",
     "husky": "^3.0.0",
     "jest": "^24.8.0",
+    "react-dev-utils": "^9.0.1",
+    "rimraf": "^2.6.3",
     "webpack": "^4.35.2",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.5",
+    "webpack-dashboard": "^3.0.7",
     "webpack-dev-server": "^3.7.2"
   }
 }
