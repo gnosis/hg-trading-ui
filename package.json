@@ -62,7 +62,7 @@
     "html-webpack-plugin": "git+https://github.com/jantimon/html-webpack-plugin.git",
     "husky": "^3.0.0",
     "jest": "^24.8.0",
-    "react-dev-utils": "^9.0.1",
+    "react-dev-utils": "^11.0.4",
     "rimraf": "^2.6.3",
     "webpack": "^4.35.2",
     "webpack-bundle-analyzer": "^3.3.2",
